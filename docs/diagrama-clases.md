@@ -107,7 +107,7 @@ classDiagram
     }
 
     class Temporada { <<enumeration>> VERANO OTONIO INVIERNO PRIMAVERA }
-    class TipoCosto { <<enumeration>> SUPERFICIE MONTAJE ELECTRICIDAD SUELDO_BASE ANTIGUEDAD PLUS_COCINA }
+    class TipoCosto { <<enumeration>> SUPERFICIE MONTAJE ELECTRICIDAD SUELDO_BASE ANTIGUEDAD PLUS_COCINERO PLUS_AYUDANTE PLUS_LAVAPLATOS }
     class TipoUnidad { <<enumeration>> FOOD_TRUCK PUESTO_DESARMABLE }
     class RolCocina { <<enumeration>> COCINERO AYUDANTE LAVAPLATOS }
     class Turno { <<enumeration>> MANIANA NOCHE }

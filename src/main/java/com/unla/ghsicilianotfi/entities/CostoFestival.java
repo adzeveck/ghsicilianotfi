@@ -37,6 +37,7 @@ public class CostoFestival {
 
 	// null = se aplica a todas las unidades
 	@Enumerated(EnumType.STRING)
+	@Column(name = "aplica_a")
 	private TipoUnidad aplicaA;
 
 	@ManyToOne(fetch = FetchType.LAZY)

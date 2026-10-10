@@ -32,7 +32,7 @@ public abstract class UnidadVenta {
 	@Column(nullable = false)
 	private String nombreComercial;
 
-	@Column(nullable = false)
+	@Column(name = "superficie_m2", nullable = false)
 	private double superficieM2;
 
 	// 10 caracteres, la logica de validacion va en un validador propio

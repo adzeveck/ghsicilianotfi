@@ -1,13 +1,17 @@
 spring:
   datasource:
     url: ${DB_URL}
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     show-sql: true
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: update
     properties:
       dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
+  sql:
+    init:
+      mode: always
