@@ -17,12 +17,20 @@ public class ViewRouteHelper {
 	public final static String PERSON_UPDATE = "person/update";
 	public final static String PERSON_PARTIAL_VIEW = "person/partialPersonView";
 
+	//PANELES POR ROL
+	public final static String ADMIN_INDEX = "admin/index";
+	public final static String RESPONSABLE_INDEX = "responsable/index";
+	public final static String EMPLEADO_INDEX = "empleado/index";
+
 	//USER
 	public final static String USER_LOGIN = "user/login";
 	public final static String USER_LOGOUT = "user/logout";
 
 	/**** Redirects ****/
 	public final static String ROUTE = "/index";
+	public final static String ADMIN_ROOT = "/admin";
+	public final static String RESPONSABLE_ROOT = "/responsable";
+	public final static String EMPLEADO_ROOT = "/empleado";
 	public final static String DEGREE_ROOT = "/degrees/";
 	public final static String PERSON_ROOT = "/person";
 }

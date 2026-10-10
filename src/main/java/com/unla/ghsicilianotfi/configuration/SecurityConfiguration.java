@@ -35,6 +35,12 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(auth -> {
 					auth.requestMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*",
 							"/vendor/jquery/*", "/vendor/bootstrap/js/*", "/api/v1/**").permitAll();
+					// Paginas publicas: inicio, login y registro de responsables
+					auth.requestMatchers("/", "/index", "/login", "/error", "/registro/**").permitAll();
+					// Cada rol accede solo a sus vistas
+					auth.requestMatchers("/admin/**", "/person/**", "/degrees/**").hasRole("ADMIN");
+					auth.requestMatchers("/responsable/**").hasRole("RESPONSABLE");
+					auth.requestMatchers("/empleado/**").hasRole("EMPLEADO");
 					auth.anyRequest().authenticated();
 				})
 				.formLogin(login -> {

@@ -1,5 +1,6 @@
 package com.unla.ghsicilianotfi.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,23 @@ public class UserController {
 	}
 
 	@GetMapping("/loginsuccess")
-	public String loginCheck() {
-		return "redirect:/index";
+	public String loginCheck(Authentication authentication) {
+		// Cada rol aterriza en su propio panel
+		return "redirect:" + switch (rolDe(authentication)) {
+			case "ROLE_ADMIN" -> ViewRouteHelper.ADMIN_ROOT;
+			case "ROLE_RESPONSABLE" -> ViewRouteHelper.RESPONSABLE_ROOT;
+			case "ROLE_EMPLEADO" -> ViewRouteHelper.EMPLEADO_ROOT;
+			default -> ViewRouteHelper.ROUTE;
+		};
+	}
+
+	private String rolDe(Authentication authentication) {
+		if (authentication == null) {
+			return "";
+		}
+		return authentication.getAuthorities().stream()
+				.map(authority -> authority.getAuthority())
+				.findFirst()
+				.orElse("");
 	}
 }

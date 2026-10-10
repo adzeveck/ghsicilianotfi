@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body>
+    <nav th:replace="~{layout :: navbar}"></nav>
+
+    <main class="container py-4">
+        <div class="page-header">
+            <h2>Panel del Empleado</h2>
+            <p class="text-muted">Sesion iniciada como <strong th:text="${username}"></strong></p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card access-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Mis festivales</h5>
+                        <p class="card-text text-muted">Festivales y unidades en las que trabajaste.</p>
+                        <span class="badge badge-secondary">Proximamente</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card access-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Recibos de sueldo</h5>
+                        <p class="card-text text-muted">Sueldo por festival y descarga del recibo en PDF.</p>
+                        <span class="badge badge-secondary">Proximamente</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card access-card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Trabajo actual</h5>
+                        <p class="card-text text-muted">Festival activo y unidad en la que trabajas hoy.</p>
+                        <span class="badge badge-secondary">Proximamente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{layout :: scripts}"></div>
+</body>
+</html>

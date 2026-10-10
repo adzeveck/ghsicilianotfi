@@ -28,6 +28,9 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.unla.ghsicilianotfi.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("Usuario no encontrado: " + username);
+		}
 		return buildUser(user, buildGrantedAuthorities(user.getUserRoles()));
 	}
 

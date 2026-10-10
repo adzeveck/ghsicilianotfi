@@ -1,0 +1,12 @@
+# Perfil de pruebas: H2 en memoria (modo MySQL) para correr los tests sin MySQL.
+# El data.sql de src/main/resources se carga igual que en la aplicacion.
+spring:
+  datasource:
+    url: jdbc:h2:mem:epicentro;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE;NON_KEYWORDS=USER,YEAR
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      dialect:
