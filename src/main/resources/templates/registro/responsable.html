@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head}"></head>
+<body>
+    <nav th:replace="~{layout :: navbar}"></nav>
+
+    <main class="container py-4">
+        <div class="page-header">
+            <h2>Registrar unidad de venta</h2>
+            <p class="text-muted">Completa los datos del responsable y de su unidad. Con tu usuario y contrasena vas a poder iniciar sesion.</p>
+        </div>
+
+        <form th:action="@{/registro/responsable}" th:object="${registro}" method="post">
+            <div class="card form-card mb-4">
+                <div class="card-header">Datos del responsable</div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{nombre}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" th:field="*{apellido}" th:classappend="${#fields.hasErrors('apellido')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{apellido}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="dni">DNI</label>
+                            <input type="text" class="form-control" id="dni" th:field="*{dni}" th:classappend="${#fields.hasErrors('dni')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{dni}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="fechaNacimiento">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" th:field="*{fechaNacimiento}" th:classappend="${#fields.hasErrors('fechaNacimiento')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{fechaNacimiento}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{email}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card form-card mb-4">
+                <div class="card-header">Credenciales de acceso</div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="form-control" id="usuario" th:field="*{usuario}" autocomplete="username" th:classappend="${#fields.hasErrors('usuario')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{usuario}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="password">Contrasena (minimo 8 caracteres)</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" autocomplete="new-password" th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{password}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="confirmarPassword">Repetir contrasena</label>
+                            <input type="password" class="form-control" id="confirmarPassword" th:field="*{confirmarPassword}" autocomplete="new-password" th:classappend="${#fields.hasErrors('confirmarPassword')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{confirmarPassword}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card form-card mb-4">
+                <div class="card-header">Datos de la unidad de venta</div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="tipoUnidad">Tipo de unidad</label>
+                            <select class="form-control" id="tipoUnidad" th:field="*{tipoUnidad}" th:classappend="${#fields.hasErrors('tipoUnidad')} ? 'is-invalid'">
+                                <option value="">-- Seleccionar --</option>
+                                <option th:each="tipo : ${tiposUnidad}" th:value="${tipo}"
+                                        th:text="${tipo.name() == 'FOOD_TRUCK' ? 'Food Truck' : 'Puesto Desarmable'}"></option>
+                            </select>
+                            <div class="invalid-feedback" th:errors="*{tipoUnidad}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="nombreComercial">Nombre comercial</label>
+                            <input type="text" class="form-control" id="nombreComercial" th:field="*{nombreComercial}" th:classappend="${#fields.hasErrors('nombreComercial')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{nombreComercial}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="superficieM2">Superficie (m2)</label>
+                            <input type="number" class="form-control" id="superficieM2" th:field="*{superficieM2}" step="0.01" min="0" th:classappend="${#fields.hasErrors('superficieM2')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{superficieM2}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="codigo">Codigo (FT o PU + 8 digitos)</label>
+                            <input type="text" class="form-control" id="codigo" th:field="*{codigo}" maxlength="10" placeholder="FT00000099" th:classappend="${#fields.hasErrors('codigo')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{codigo}"></div>
+                        </div>
+                    </div>
+
+                    <div id="datosFoodTruck" class="form-row" style="display:none">
+                        <div class="form-group col-md-6">
+                            <label for="patente">Patente</label>
+                            <input type="text" class="form-control" id="patente" th:field="*{patente}" th:classappend="${#fields.hasErrors('patente')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{patente}"></div>
+                        </div>
+                        <div class="form-group col-md-6 d-flex align-items-end">
+                            <div class="form-check mb-2">
+                                <input type="checkbox" class="form-check-input" id="requiereElectricidad" th:field="*{requiereElectricidad}"/>
+                                <label class="form-check-label" for="requiereElectricidad">Requiere conexion electrica</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="datosPuesto" class="form-row" style="display:none">
+                        <div class="form-group col-md-6">
+                            <label for="cantidadCarpas">Cantidad de carpas</label>
+                            <input type="number" class="form-control" id="cantidadCarpas" th:field="*{cantidadCarpas}" min="1" th:classappend="${#fields.hasErrors('cantidadCarpas')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{cantidadCarpas}"></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="minutosMontaje">Tiempo de montaje (minutos)</label>
+                            <input type="number" class="form-control" id="minutosMontaje" th:field="*{minutosMontaje}" min="1" th:classappend="${#fields.hasErrors('minutosMontaje')} ? 'is-invalid'"/>
+                            <div class="invalid-feedback" th:errors="*{minutosMontaje}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card form-card mb-4">
+                <div class="card-header">Festivales en los que participa</div>
+                <div class="card-body">
+                    <div class="form-check" th:each="festival : ${festivales}">
+                        <input type="checkbox" class="form-check-input" name="festivalIds" th:id="${'festival' + festival.id}"
+                               th:value="${festival.id}" th:checked="${registro.festivalIds.contains(festival.id)}"/>
+                        <label class="form-check-label" th:for="${'festival' + festival.id}"
+                               th:text="${festival.nombre + ' (' + #temporals.format(festival.fechaInicio, 'dd/MM/yyyy') + ' - ' + #temporals.format(festival.fechaFin, 'dd/MM/yyyy') + ')'}"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex">
+                <button type="submit" class="btn btn-success mr-2">Registrarme</button>
+                <a th:href="@{/index}" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </main>
+
+    <footer th:replace="~{layout :: footer}"></footer>
+    <div th:replace="~{layout :: scripts}"></div>
+
+    <script>
+        // Muestra solo los campos del tipo de unidad elegido
+        function actualizarTipo() {
+            var tipo = document.getElementById('tipoUnidad').value;
+            document.getElementById('datosFoodTruck').style.display = tipo === 'FOOD_TRUCK' ? 'flex' : 'none';
+            document.getElementById('datosPuesto').style.display = tipo === 'PUESTO_DESARMABLE' ? 'flex' : 'none';
+        }
+        document.getElementById('tipoUnidad').addEventListener('change', actualizarTipo);
+        actualizarTipo();
+    </script>
+</body>
+</html>

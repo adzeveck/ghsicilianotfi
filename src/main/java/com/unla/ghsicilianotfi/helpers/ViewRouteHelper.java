@@ -22,6 +22,9 @@ public class ViewRouteHelper {
 	public final static String RESPONSABLE_INDEX = "responsable/index";
 	public final static String EMPLEADO_INDEX = "empleado/index";
 
+	//REGISTRO
+	public final static String REGISTRO_RESPONSABLE = "registro/responsable";
+
 	//USER
 	public final static String USER_LOGIN = "user/login";
 	public final static String USER_LOGOUT = "user/logout";

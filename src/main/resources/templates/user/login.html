@@ -25,6 +25,10 @@
                     Cesion finalizada correctamente.
                 </div>
 
+                <div th:if="${registrado != null}" class="alert alert-success">
+                    Registro exitoso. Ya podes iniciar sesion con tu usuario.
+                </div>
+
                 <form th:action="@{/loginprocess}" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Usuario</label>

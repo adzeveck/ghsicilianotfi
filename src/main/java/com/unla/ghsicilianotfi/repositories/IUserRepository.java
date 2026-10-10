@@ -12,6 +12,8 @@ import com.unla.ghsicilianotfi.entities.User;
 @Repository("userRepository")
 public interface IUserRepository extends JpaRepository<User, Serializable> {
 
+	boolean existsByUsername(String username);
+
 	@Query("SELECT u FROM User u JOIN FETCH u.userRoles WHERE u.username = (:username)")
 	public abstract User findByUsernameAndFetchUserRolesEagerly(@Param("username") String username);
 }
