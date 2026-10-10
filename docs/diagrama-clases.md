@@ -66,7 +66,6 @@ classDiagram
     }
 
     class Personal {
-        <<abstract>>
         -int id
         -String nombre
         -String apellido
@@ -85,7 +84,9 @@ classDiagram
     class Cajero {
         -Turno turno
     }
-    class Responsable {
+    class ParticipacionFestival {
+        -int id
+        +calcularCanon() BigDecimal
     }
 
     class CierreCaja {
@@ -115,19 +116,18 @@ classDiagram
     UnidadVenta <|-- PuestoDesarmable
     Personal <|-- EmpleadoCocina
     Personal <|-- Cajero
-    Personal <|-- Responsable
 
     Festival "1" *-- "0..*" CostoFestival : define
-    Festival "1" o-- "0..*" UnidadVenta : habilita
+    Festival "1" *-- "0..*" ParticipacionFestival
+    UnidadVenta "1" *-- "0..*" ParticipacionFestival : participa en
+    ParticipacionFestival "0..*" o-- "0..*" Personal : staff
     UnidadVenta "1" *-- "0..*" Plato : ofrece
-    UnidadVenta "0..*" o-- "0..*" Personal : staff
-    UnidadVenta "1" --> "1" Responsable : a cargo de
-    Festival "1" <-- "0..*" Pedido : ocurre en
-    UnidadVenta "1" <-- "0..*" Pedido : entrega
+    UnidadVenta "1" --> "1" Personal : responsable
+    ParticipacionFestival "1" <-- "0..*" Pedido : se realiza en
     Pedido "1" *-- "1..*" ItemPedido
     ItemPedido "0..*" --> "1" Plato
     Cajero "1" --> "0..*" CierreCaja
-    CierreCaja "0..*" --> "1" UnidadVenta
+    CierreCaja "0..*" --> "1" ParticipacionFestival
     Personal "1" --> "0..1" User : inicia sesión con
     User "1" *-- "1..*" UserRole
 
@@ -209,7 +209,8 @@ classDiagram
 
 ## Decisiones de diseño
 
-- `Personal` es la raíz de la herencia (JOINED, igual que `Person` en el repo de ejemplo). `Responsable` es un `Personal`, porque el enunciado dice que es "uno de los miembros del Staff".
-- Los montos (sueldo base, $500/m², plus de antigüedad, plus de cocina) **no se hardcodean**: viven en `CostoFestival` y se leen desde ahí.
+- `Personal` es una clase concreta con herencia JOINED: `EmpleadoCocina` y `Cajero` son sus hijas. No hay clase `Responsable`: es un `Personal` referenciado desde `UnidadVenta.responsable`, y su rol de acceso es `ROLE_RESPONSABLE` en `UserRole`.
+- Una misma `UnidadVenta` puede participar en varios festivales: la relación N a N se resuelve con `ParticipacionFestival` (unidad + festival). El staff asignado, el canon, los pedidos y el cierre de caja son por participación. Los platos pertenecen a la unidad.
+- Los montos (sueldo base, $500/m², plus de antigüedad, plus de cocina) **no se hardcodean**: viven en `CostoFestival`.
 - La baja lógica es el campo `eliminado` en `Personal` y `Plato`.
 - Los DTOs de reporte no son entidades: se arman en `ReporteService` a partir de consultas.
